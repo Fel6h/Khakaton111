@@ -21,6 +21,7 @@ public class PlayerController : MonoBehaviour
         _rigetbody = GetComponent<Rigidbody>();
     }
 
+
     // Update is called once per frame
     void Update()
     {
@@ -36,6 +37,19 @@ public class PlayerController : MonoBehaviour
 
         _rigetbody.velocity = new Vector3(_moveDir.x, _rigetbody.velocity.y, _moveDir.z);
         _rigetbody.angularVelocity = Vector3.zero; // убираем рвки придвижении
+
+        // создаем бег
+        if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.LeftShift))
+        {
+            // Зажаты ли еще кнопки A S D?
+            if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D))
+            {
+                // Если да, то мы идем пешком
+                Run();
+            }
+        }
+ 
+ 
 
 
         // кнопка прыжка
@@ -69,5 +83,10 @@ public class PlayerController : MonoBehaviour
             Debug.Log("Did not find ground layer");
         }
 
+    }
+
+    void Run()
+    {
+        _animator.SetTrigger("Running");
     }
 }
